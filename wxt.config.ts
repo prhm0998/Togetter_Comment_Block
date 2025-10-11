@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 // See https://wxt.dev/api/config.html
 export default defineConfig({
   srcDir: 'src',
-  modules: ['@wxt-dev/module-vue', '@wxt-dev/auto-icons'],
+  modules: ['@wxt-dev/i18n/module', '@wxt-dev/module-vue', '@wxt-dev/auto-icons'],
   vite: () => {
     const isProd = process.env.NODE_ENV === 'production'
     return {
@@ -19,7 +19,8 @@ export default defineConfig({
   },
   manifest: () => ({
     permissions: ['storage'],
-    name: process.env.NODE_ENV === 'production' ? import.meta.env.WXT_EXT_NAME : `(Dev)${import.meta.env.WXT_EXT_NAME}`,
-    description: import.meta.env.WXT_EXT_DESC,
+    name: '__MSG_name__',
+    description: '__MSG_description__',
+    default_locale: 'ja',
   }),
 })
