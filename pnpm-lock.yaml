@@ -20,6 +20,9 @@ importers:
       '@wxt-dev/auto-icons':
         specifier: ^1.1.0
         version: 1.1.0(wxt@0.20.11(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(rollup@4.52.0)(sass@1.93.0))
+      '@wxt-dev/i18n':
+        specifier: ^0.2.4
+        version: 0.2.4(wxt@0.20.11(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(rollup@4.52.0)(sass@1.93.0))
       '@wxt-dev/module-vue':
         specifier: ^1.0.2
         version: 1.0.3(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(sass@1.93.0))(vue@3.5.21(typescript@5.9.2))(wxt@0.20.11(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(rollup@4.52.0)(sass@1.93.0))
@@ -970,8 +973,19 @@ packages:
     peerDependencies:
       wxt: '>=0.19.0'
 
+  '@wxt-dev/browser@0.0.318':
+    resolution: {integrity: sha512-rVZBWikRK8tkVOmvR1gCSMvN5omsIAt4L1Je32I/wl4yJgAcu3xb3ZjJceRWiXUNPvjH1vWfQbEUQD7+nJ2cCg==}
+
   '@wxt-dev/browser@0.1.4':
     resolution: {integrity: sha512-9x03I15i79XU8qYwjv4le0K2HdMl/Yga2wUBSoUbcrCnamv8P3nvuYxREQ9C5QY/qPAfeEVdAtaTrS3KWak71g==}
+
+  '@wxt-dev/i18n@0.2.4':
+    resolution: {integrity: sha512-qYWCRlMcRY/fCcwYpPcZV55NHFlri8K+eJqS/0bhHnDClWkiYHyYnIzI0tMeNdXCCo8oyKQr+qhrVM/LKNRymw==}
+    peerDependencies:
+      wxt: '>=0.19.7'
+    peerDependenciesMeta:
+      wxt:
+        optional: true
 
   '@wxt-dev/module-vue@1.0.3':
     resolution: {integrity: sha512-xUNygcj4w0b1MzQGOQIp5V2ZwFE4y+5AwKPi/IPKyo2aNeFVJTfItIxzWI5vTj7031WCLzHgQrrBRS5C63D5iw==}
@@ -3533,10 +3547,24 @@ snapshots:
       sharp: 0.34.4
       wxt: 0.20.11(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(rollup@4.52.0)(sass@1.93.0)
 
+  '@wxt-dev/browser@0.0.318':
+    dependencies:
+      '@types/filesystem': 0.0.36
+      '@types/har-format': 1.2.16
+
   '@wxt-dev/browser@0.1.4':
     dependencies:
       '@types/filesystem': 0.0.36
       '@types/har-format': 1.2.16
+
+  '@wxt-dev/i18n@0.2.4(wxt@0.20.11(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(rollup@4.52.0)(sass@1.93.0))':
+    dependencies:
+      '@wxt-dev/browser': 0.0.318
+      chokidar: 4.0.3
+      confbox: 0.2.2
+      fast-glob: 3.3.3
+    optionalDependencies:
+      wxt: 0.20.11(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(rollup@4.52.0)(sass@1.93.0)
 
   '@wxt-dev/module-vue@1.0.3(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(sass@1.93.0))(vue@3.5.21(typescript@5.9.2))(wxt@0.20.11(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(rollup@4.52.0)(sass@1.93.0))':
     dependencies:
