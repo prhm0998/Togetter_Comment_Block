@@ -74,12 +74,12 @@ const isLongId = (length: number) => {
     </div>
 
     <div class="flex-grow gutter-stable mr-2 overflow-y-auto">
-      <table class="table table-fixed table-pin-rows table-zebra w-full">
+      <table class="table table-fixed table-pin-rows table-sm table-zebra w-full">
         <thead>
           <tr class="shadow">
             <th class="w-auto">{{ modelValue.name }}</th>
             <th class="w-[100px]">Submit At</th>
-            <th class="w-[100px]">Last Find</th>
+            <th class="w-[100px]">Last Find (days)</th>
             <th class="w-[82px]"></th>
           </tr>
         </thead>
@@ -100,7 +100,7 @@ const isLongId = (length: number) => {
 
             <!-- Last Find -->
             <td class="text-center">
-              {{ now.diff(key.lastFindAt, "d") }} days ago
+              {{ now.diff(key.lastFindAt, "d") }}
             </td>
 
             <!-- 削除ボタン -->
