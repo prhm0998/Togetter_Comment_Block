@@ -14,7 +14,7 @@
     "compile": "vue-tsc --noEmit",
     "postinstall": "wxt prepare",
     "submit-init": "wxt submit init",
-    "upload-secret": "node scripts/upload-secret.js",
+    "upload-secret": "jiti ./scripts/upload-secret.ts",
     "dryrun-win": "wxt submit --dry-run --chrome-zip .output/%npm_package_name%-%npm_package_version%-chrome.zip",
     "submit-win": "wxt submit --chrome-zip .output/%npm_package_name%-%npm_package_version%-chrome.zip",
     "dryrun-unix": "wxt submit --dry-run --chrome-zip .output/${npm_package_name}-${npm_package_version}-chrome.zip",
@@ -37,6 +37,7 @@
   "devDependencies": {
     "@eslint/js": "^9.34.0",
     "@octokit/rest": "^22.0.0",
+    "@types/libsodium-wrappers": "^0.7.14",
     "dotenv": "^17.2.3",
     "eslint": "^9.34.0",
     "eslint-plugin-vue": "^10.4.0",
