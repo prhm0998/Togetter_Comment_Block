@@ -22,5 +22,11 @@ export default defineConfig({
     name: '__MSG_name__',
     description: '__MSG_description__',
     default_locale: 'ja',
+    web_accessible_resources: [
+      {
+        resources: ['history-replace.js'],
+        matches: ['*://*/*'],
+      },
+    ],
   }),
 })
