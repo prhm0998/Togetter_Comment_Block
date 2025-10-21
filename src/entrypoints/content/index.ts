@@ -5,7 +5,10 @@ export default defineContentScript({
     '*://*.togetter.com/*',
     '*://*.posfie.com/*',
   ],
-  main(ctx) {
+  async main(ctx) {
+
+    await injectScript('/history-replace.js', { keepInDom: true })
+    console.log('Done!')
     const urlPatterns = [
       /^https:\/\/(?:[\w-]+\.)?togetter\.com\/li+\/\d+/,
       /^https:\/\/(?:[\w-]+\.)?posfie\.com\/.+/]
