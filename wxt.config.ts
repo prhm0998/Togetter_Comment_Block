@@ -25,7 +25,9 @@ export default defineConfig({
     web_accessible_resources: [
       {
         resources: ['history-replace.js'],
-        matches: ['*://*/*'],
+        matches: [
+          '*://*.togetter.com/*',
+          '*://*.posfie.com/*'],
       },
     ],
   }),
