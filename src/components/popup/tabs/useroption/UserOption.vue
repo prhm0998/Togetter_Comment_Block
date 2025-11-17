@@ -12,7 +12,7 @@ export interface UserOptionEntry {
 }
 const options: UserOptionEntry[] = [
   { key: 'enabled', label: 'NG設定を有効化する' },
-  { key: 'useShowOnHover', label: '非表示チャットをホバーで表示する' },
+  { key: 'useShowOnHover', label: '非表示コメントをホバーで表示する' },
   { key: 'useNormalize', label: 'ひらがな・カタカナを区別しない' },
   { key: 'useCaseInsensitive', label: '大文字・小文字を区別しない' },
   { key: 'useTemporaryWordSensitive', label: '禁止語句を使用したユーザーを一時的に非表示にします' },
