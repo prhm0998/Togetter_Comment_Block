@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { IconRaiseHandOff, IconPenOff, IconGear } from '@iconify-prerendered/vue-pepicons-pop'
+
 import IgnoreList from './ignorelist/IgnoreList.vue'
 import UserOption from './useroption/UserOption.vue'
 
 export interface TabType {
-  key: StorageItemKey,
+  key: StorageItemKey
   name: 'Id' | 'Word' | 'Option'
 }
 

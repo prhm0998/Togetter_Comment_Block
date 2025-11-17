@@ -1,22 +1,21 @@
-import useStoredValue from './useStoredValue'
-import dayjs, { type Dayjs } from 'dayjs'
+import { useStoredValue } from '@prhm0998/shared/composables'
 import { useDebounceFn } from '@vueuse/core'
+import dayjs, { type Dayjs } from 'dayjs'
 
 export interface IgnoreBase {
-  id: string;
-  submitAt: Dayjs;
-  lastFindAt: Dayjs;
+  id: string
+  submitAt: Dayjs
+  lastFindAt: Dayjs
 }
 
 export interface IgnoreSnapshot extends Omit<IgnoreBase, 'submitAt' | 'lastFindAt'> {
-  submitISO: string;
-  lastFindISO: string;
+  submitISO: string
+  lastFindISO: string
 }
 
 export default function (key: StorageItemKey) {
   const { state: storedJson } = useStoredValue(key, '[]')
   const memoryCache = ref<Map<IgnoreBase['id'], IgnoreBase>>(new Map<IgnoreBase['id'], IgnoreBase>())
-  // const isDirty = ref(false)
 
   // json to state logic
   const deserialize = (jsonString: string): Map<IgnoreBase['id'], IgnoreBase> => {

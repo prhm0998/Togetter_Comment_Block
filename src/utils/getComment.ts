@@ -1,14 +1,13 @@
 export interface PreAnalyzedTogetterCommentContent {
-  mentions: string[];
-  text: string;
+  mentions: string[]
+  text: string
 }
 
 export interface PreAnalyzedTogetterComment {
-  elm: HTMLElement; //これを消したらまるっと消える
-  insertElm: Element | null; // ここにボタンを付け足したら丁度いい
-  authorName: string;
-  authorId: string;
-  commentBody: PreAnalyzedTogetterCommentContent;
+  elm: HTMLElement //これを消したらまるっと消える
+  authorName: string
+  authorId: string
+  commentBody: PreAnalyzedTogetterCommentContent
 }
 
 /**
@@ -51,17 +50,10 @@ function getMentions(li: HTMLElement): string[] {
   return mentions
 }
 
-/**
- * ボタンの挿入先要素（insertElm）を抽出する
- */
-function getInsertElement(li: HTMLElement): Element | null {
-  return li.querySelector('footer')
-}
-
 export default function (li: HTMLElement): PreAnalyzedTogetterComment {
   return {
     elm: li,
-    insertElm: getInsertElement(li),
+    //insertElm: getInsertElement(li),
     authorName: getAuthorName(li),
     authorId: getAuthorId(li),
     commentBody: {
