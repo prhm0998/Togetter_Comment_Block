@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import useIgnore from '@/composables/useIgnore'
 import dayjs from 'dayjs'
-import RemoveButton from './RemoveButton.vue'
-import Header from './Header.vue'
+
 import type { TabType } from '@/components/popup/tabs/Tabs.vue'
+import useIgnore from '@/composables/useIgnore'
+
+import Header from './Header.vue'
+import RemoveButton from './RemoveButton.vue'
 
 interface Props {
   modelValue: TabType

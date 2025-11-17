@@ -1,33 +1,35 @@
-import useStoredValue from './useStoredValue'
+import { useStoredValue } from '@prhm0998/shared/composables'
+import { applyDefaultProperties, filterProperties } from '@prhm0998/shared/utils'
 import { useDebounceFn } from '@vueuse/core'
-import filterProperties from '@/utils/filterPropertiers'
-import applyDefaultProperties from '@/utils/applyDefaultProperties'
 
 export interface UserOption {
   enabled: boolean
+  useShowOnHover: boolean
   useNormalize: boolean
   useCaseInsensitive: boolean
   useTemporaryWordSensitive: boolean
   useWordSensitive: boolean
   useTemporaryMentionSensitive: boolean
   useMentionSensitive: boolean
+  useReplaceHistory: boolean
   //useTemporaryFrequencyLimit: number
   //useFrequencyLimit: number
 }
 
-export type UserOptionInputEvent =
-  // | { type: 'toggle', key: keyof UserOption }
-  | {
-    type: 'toggle',
-    key:
-    'enabled'
-    | 'useNormalize'
-    | 'useCaseInsensitive'
-    | 'useTemporaryWordSensitive'
-    | 'useWordSensitive'
-    | 'useTemporaryMentionSensitive'
-    | 'useMentionSensitive'
-  }
+export type UserOptionEvent =
+  | { type: 'toggle', key: keyof UserOption }
+
+const getDefaultUserOption = (): UserOption => ({
+  enabled: true,
+  useShowOnHover: false,
+  useNormalize: true,
+  useCaseInsensitive: true,
+  useTemporaryWordSensitive: false,
+  useWordSensitive: false,
+  useTemporaryMentionSensitive: false,
+  useMentionSensitive: false,
+  useReplaceHistory: false,
+})
 //| { type: 'updateNumber', key: 'useTemporaryFrequencyLimit' | 'useFrequencyLimit', value: number }
 
 export default function () {
@@ -42,7 +44,7 @@ export default function () {
       // 不要なプロパティを削除
       const filterd = filterProperties(parsed, defaultUserOption)
       // jsonにないプロパティはデフォルトから持ってくる
-      return applyDefaultProperties(filterd, defaultUserOption)
+      return applyDefaultProperties(defaultUserOption, filterd)
     }
     catch {
       return getDefaultUserOption()
@@ -63,7 +65,7 @@ export default function () {
     storedJson.value = JSON.stringify(serialize())
   }, 100, { maxWait: 1000 })
 
-  const updateUserOption = (event: UserOptionInputEvent) => {
+  const updateUserOption = (event: UserOptionEvent) => {
     const { type, key } = event
     switch (type) {
       case 'toggle':
@@ -88,9 +90,6 @@ export default function () {
         }
         memoryCache.value[event.key] = !memoryCache.value[event.key]
         break
-      //case 'updateNumber':
-      //  memoryCache.value[event.key] = event.value
-      //  break;
       default:
         break
     }
@@ -101,14 +100,3 @@ export default function () {
     updateUserOption,
   }
 }
-const getDefaultUserOption = (): UserOption => ({
-  enabled: true,
-  useNormalize: true,
-  useCaseInsensitive: true,
-  useTemporaryWordSensitive: true,
-  useWordSensitive: false,
-  useTemporaryMentionSensitive: true,
-  useMentionSensitive: false,
-  //useTemporaryFrequencyLimit: 0,
-  //useFrequencyLimit: 0,
-})
