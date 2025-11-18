@@ -109,41 +109,48 @@ export function useCommentManagerBase<T extends {
   }
 
   const commentStyling = (el: HTMLElement, ignored: boolean) => {
-    if (ignored && userOption.value.enabled) {
 
-      if (userOption.value.useShowOnHover) {
-        el.style.display = ''
-        el.style.opacity = '0.05'
-      }
-      else {
-        el.style.display = 'none'
-        el.style.opacity = ''
-      }
-
-      // hover handler 登録
-      if (!hoverHandlers.has(el)) {
-        const onEnter = () => {
-          if (userOption.value.useShowOnHover) {
-            el.style.opacity = '1'
-            el.style.display = ''
-          }
-        }
-        const onLeave = () => {
-          if (userOption.value.useShowOnHover) {
-            el.style.opacity = '0.05'
-            el.style.display = ''
-          }
-        }
-        el.addEventListener('mouseover', onEnter)
-        el.addEventListener('mouseout', onLeave)
-        hoverHandlers.set(el, { onEnter, onLeave })
-      }
+    const existing = hoverHandlers.get(el)
+    if (existing) {
+      el.removeEventListener('mouseover', existing.onEnter)
+      el.removeEventListener('mouseout', existing.onLeave)
     }
-    else {
-      // 通常表示
+
+    // --- 2. ignored ではない場合 → 完全通常表示で終了 ---
+    if (!ignored || !userOption.value.enabled) {
       el.style.opacity = ''
       el.style.display = ''
+      return
     }
+
+    // --- 3. ignored かつ enabled = true の場合の処理 ---
+
+    // hover 表示を使う場合
+    if (userOption.value.useShowOnHover) {
+      el.style.display = ''
+      el.style.opacity = '0.05'
+
+      // 新しい hover ハンドラを登録
+      const onEnter = () => {
+        el.style.opacity = '1'
+        el.style.display = ''
+      }
+
+      const onLeave = () => {
+        el.style.opacity = '0.05'
+        el.style.display = ''
+      }
+
+      el.addEventListener('mouseover', onEnter)
+      el.addEventListener('mouseout', onLeave)
+      hoverHandlers.set(el, { onEnter, onLeave })
+
+      return
+    }
+
+    // hover 表示を使わない場合（完全非表示）
+    el.style.display = 'none'
+    el.style.opacity = ''
   }
 
   const bannedProcess = (comment: T, judge: CommentJudgeResult) => {
