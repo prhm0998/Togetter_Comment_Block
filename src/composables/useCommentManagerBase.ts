@@ -46,7 +46,7 @@ export function useCommentManagerBase<T extends {
   >()
 
   const { state: userOption } = useUserOption()
-  const { state: ignoreId, upsert: upsertId } = useIgnore('local:Id')
+  const { state: ignoreId, upsert: upsertId, remove: removeId } = useIgnore('local:Id')
   const { state: ignoreSessionId, upsert: upsertSessionId } = useIgnore('session:Id')
   const { state: ignoreWord } = useIgnore('local:Word')
   const { isIgnoredWord } = useIgnoreWordsReg(ignoreWord, userOption)
@@ -64,7 +64,14 @@ export function useCommentManagerBase<T extends {
       onMount: (container) => {
         appInstance = createApp(ExternalUi, {
           state,
-          onClick: () => upsertId(state.id),
+          onClick: () => {
+            if (state.prevJudge?.byId) {
+              removeId(state.id)
+            }
+            else {
+              upsertId(state.id)
+            }
+          },
         })
         appInstance.mount(container)
         return appInstance
@@ -89,9 +96,13 @@ export function useCommentManagerBase<T extends {
     const byMention = comment.mentions.some(
       (id) => ignoreId.value.has(id) || ignoreSessionId.value.has(id)
     )
+    const opt = userOption.value
 
     return {
-      ignored: byId || bySessionId || byWord || byMention,
+      ignored: byId ||
+        bySessionId ||
+        (byWord && (opt.useWordSensitive || opt.useTemporaryWordSensitive)) ||
+        (byMention && (opt.useMentionSensitive || opt.useTemporaryMentionSensitive)),
       byId,
       bySessionId,
       byWord,
